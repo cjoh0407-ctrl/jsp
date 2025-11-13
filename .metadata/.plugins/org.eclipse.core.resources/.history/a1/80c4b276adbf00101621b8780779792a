@@ -1,0 +1,51 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Statement"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%!	//선언문
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "test";
+	String pass = "1234";
+	String sql = "select * from member";
+	
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>회원 목록</h1>
+	
+	<table width='800' border='1'>
+		<tr>
+			<th>이름</th>
+			<th>아이디</th>
+			<th>비밀번호</th>
+			<th>이메일</th>
+			<th>전화번호</th>
+			<th>권한(1:관리자, 0:일반회원)</th>
+		</tr>
+		<%
+		
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //드라이버 로드
+			conn = DriverManager.getConnection(url, uid, pass); // DB(오라클 연결)
+			
+			stmt = conn.createStatement(); // SQL 문장 오라클 전송
+			rs = stmt.executeQuery(sql); // SQL 구문 실행
+			
+			
+			
+		%>
+	</table>
+</body>
+</html>

@@ -1,0 +1,8 @@
+package com.saeyan.dao;
+/*
+ * DB연결을 담당하는 클래스 입니다.
+ * 싱글톤으로 객체 하나만 생성해서 공유
+ */
+public class MemberDAO {
+
+}

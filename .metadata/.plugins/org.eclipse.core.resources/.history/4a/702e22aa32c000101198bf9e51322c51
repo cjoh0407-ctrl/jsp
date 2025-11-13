@@ -1,0 +1,48 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%!
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "test";
+	String pass = "1234";
+	
+	String sql = "insert into member values(?,?,?,?,?,?)";
+%>
+
+<%
+	request.setCharacterEncoding("utf-8"); //한글처리 깨짐 방지
+	
+	
+	//addMemberFrom.jsp 에서 입력한 내용을 가져옴
+	String name = request.getParameter("name");
+	String userid = request.getParameter("userid");
+	String pwd = request.getParameter("pwd");
+	String email = request.getParameter("email");
+	String phone = request.getParameter("phone");
+	int admin = Integer.parseInt(request.getParameter("admin"));
+	
+	try{
+		
+		//1. 드라이브 로드
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		//2. 데이터베이스 연결
+		con = DriverManager.getConnection(url, uid, pass);
+		
+		//확인용 //out.println(con);
+		
+		pstmt = con.prepareStatement(sql);
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		if(pstmt != null) pstmt.close();
+		if(con != null) con.close();
+	}
+%>

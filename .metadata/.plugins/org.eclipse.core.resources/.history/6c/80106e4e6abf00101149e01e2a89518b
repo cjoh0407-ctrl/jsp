@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+//우리 서버에 가입한 회원 정보
+
+String id = "test";
+String pwd = "test1234";
+String name = "홍길동";
+
+String id2 = request.getParameter("id");
+String pwd2 = request.getParameter("pwd");
+String name2 = request.getParameter("name");
+
+%>

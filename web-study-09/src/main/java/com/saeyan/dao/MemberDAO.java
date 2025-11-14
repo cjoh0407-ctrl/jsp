@@ -92,10 +92,12 @@ public class MemberDAO {
 		return result;
 	} // end userCheck
 	
+//--------------------------------------------------------------------------
+	
 	//아이디로 회원 정보 가져오는 메소드
 	public MemberVO getMember(String userid){
 		
-		MemberVO mvo = null;
+		MemberVO mvo = new MemberVO();
 		String sql = "select * from member where userid = ?";
 		
 		Connection con = null;
@@ -134,4 +136,93 @@ public class MemberDAO {
 		return mvo;
 		
 	} // end getMember
+
+//--------------------------------------------------------------------------
+	
+	//result : -1 아이디 사용가능
+	//result : 1 아이디 사용 불가능 (중복)
+	public int confirmID(String userid) {
+		
+		int result = -1;
+		
+		String sql = "select userid from member where userid = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = getConnection(); //DB연결
+			pstmt = con.prepareStatement(sql); //SQL 구문 전송
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();// 실행 및 결과 반환
+			
+			if(rs.next()) {
+				//가져올 데이터 있니???????????????????
+					result = 1;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+				try {
+					rs.close();
+					pstmt.close();
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		return result;
+	}//end confirmID
+	
+//--------------------------------------------------------------------------
+
+	public int insertMember(MemberVO mvo) {
+		
+int result = -1;
+		
+		String sql = "insert into member values(?, ?, ?, ?, ?, ?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection(); //DB연결
+			pstmt = con.prepareStatement(sql); //SQL 구문 전송
+			pstmt.setString(1, mvo.getName());
+			pstmt.setString(2, mvo.getUserid());
+			pstmt.setString(3, mvo.getPwd());
+			pstmt.setString(4, mvo.getEmail());
+			pstmt.setString(5, mvo.getPhone());
+			pstmt.setInt(6, mvo.getAdmin());
+			
+			result = pstmt.executeUpdate();// 실행 및 결과 반환
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} //end catch
+		} //end finally
+		return result;
+	}// end insertMember
+	
+//--------------------------------------------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

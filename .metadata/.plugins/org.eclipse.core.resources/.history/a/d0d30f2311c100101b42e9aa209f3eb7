@@ -1,0 +1,36 @@
+function loginCheck(){
+	if( document.frm.userid.value.length == 0){
+		alert("아이디를 입력해주세요.");
+		frm.userid.focus();
+		return false;
+	}
+	
+	if(document.frm.pwd.value == ""){
+		alert("비밀번호를 입력해주세요.");
+		frm.pwd.focus();
+		return false;
+	}
+	
+	return true;
+}
+
+function idCheck(){
+	if(document.frm.userid.value == ""){
+		alert("아이디를 입력해주세요.");
+		frm.userid.focus();
+		return ;
+	}
+	
+	//idCheck.do?userid='somi'
+	let url="idCheck.do?userid=" + document.frm.userid.value;
+	
+	//새로운 브라우저 창(팝업창)을 연다.
+	window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizeable=no, width=450, height=200");
+	// 열고 싶은 페이지의 주소
+	// 새 창의 이름
+	// 브라우저 도구 모음
+	// 메뉴바 숨기기
+	// 스크롤바는 보이도록
+	//
+	
+}

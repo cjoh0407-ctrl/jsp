@@ -15,7 +15,7 @@
 			
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="userid" value="${userId}"></td>
+				<td><input type="text" name="userid" value="${userid}"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
@@ -31,8 +31,11 @@
 			</tr>
 			
 			<tr>
-				<td colspan="2">${message}</td>
+				<td colspan="2" style="color:red">${message}</td>
 			</tr>
+			<%-- tr>
+				<td colspan="2" style="color:red"><%=request.getAttribute("message") %></td>
+			</tr> --%>
 		</table>
 	</form>
 </body>

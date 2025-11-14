@@ -180,7 +180,7 @@ public class MemberDAO {
 
 	public int insertMember(MemberVO mvo) {
 		
-int result = -1;
+		int result = -1;
 		
 		String sql = "insert into member values(?, ?, ?, ?, ?, ?)";
 		Connection con = null;
@@ -211,6 +211,39 @@ int result = -1;
 		} //end finally
 		return result;
 	}// end insertMember
+
+//--------------------------------------------------------------------------
+
+	public void updateMember(MemberVO mvo) {
+		
+		String sql = "update member set pwd=?, email=?, phone=?, admin=? where userid=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection(); //DB연결
+			pstmt = con.prepareStatement(sql); //SQL 구문 전송
+			pstmt.setString(1, mvo.getPwd());
+			pstmt.setString(2, mvo.getEmail());
+			pstmt.setString(3, mvo.getPhone());
+			pstmt.setInt(4, mvo.getAdmin());
+			pstmt.setString(5, mvo.getUserid());
+			
+			pstmt.executeUpdate();// 실행 및 결과 반환
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				pstmt.close();
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} //end catch
+		} //end finally
+		
+	}//end updateMember
 	
 //--------------------------------------------------------------------------
 	

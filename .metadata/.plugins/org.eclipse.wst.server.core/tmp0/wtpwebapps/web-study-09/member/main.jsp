@@ -22,7 +22,7 @@
 				<td colspan="2" align="center">
 					<input type="submit" value="로그아웃"> &nbsp;&nbsp;
 					<input type="button" value="회원정보변경"
-					onclick="lacation.href='memberUpdate.do?userid=${loginUser.userid}'">
+					onclick="location.href='memberUpdate.do?userid=${loginUser.userid}'">
 				</td>
 			</tr>
 		</table>

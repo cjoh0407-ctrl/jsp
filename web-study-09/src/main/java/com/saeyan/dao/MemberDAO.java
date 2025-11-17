@@ -52,7 +52,7 @@ public class MemberDAO {
 	}
 	
 	//사용자 인증시 사용하는 메소드
-	public boolean userCheck(String userid, String pwd) {
+	public boolean userCheck(String userid, String pwd) { 
 		boolean result = false;
 		
 		String sql = "select pwd from member where userid = ?";

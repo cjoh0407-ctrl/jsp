@@ -35,13 +35,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//login.jsp 입력한 아이디와 패스워드 추출?
-		String userid = request.getParameter("userid");
+		String userid = request.getParameter("userid"); 
 		String pwd = request.getParameter("pwd");
 		String url = "member/login.jsp";
 		
 		MemberDAO mdao = MemberDAO.getInstance();
 		
-		boolean result = mdao.userCheck(userid, pwd);
+		boolean result = mdao.userCheck(userid, pwd); //login.jsp 에서 입력한 정보를 대입
 		
 		System.out.println("result : " + result);
 		

@@ -145,7 +145,6 @@ public class BoardDAO {
 				vo.setContent(rs.getString("content"));
 				vo.setReadcount(rs.getInt("readcount"));
 				vo.setWritedate(rs.getTimestamp("writedate"));
-				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -153,7 +152,84 @@ public class BoardDAO {
 			DBManager.close(con, pstmt, rs);
 		}
 		return vo;
-	}
+	}//end-------------------------------------------------------------------
+
+	public void updateReadCount(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE board SET readcount ="
+				+ "readcount+1 where num = ?";
+		
+		try {
+			con = DBManager.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt);
+		}
+	}//end updateReadCount=================================================================
+
+	public void deleteBoard(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "DELETE FROM board WHERE num = ?";
+		
+		try {
+			con = DBManager.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt);
+		}
+	}//end deleteBoard --------------------------------------------------------------------------
+
+	public void updateBoard(BoardVO vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE board SET name = ?,  pass = ?, email = ?, title = ?, "
+				+ " content = ?, writedate = ? WHERE num = ?";
+		
+		String sqldate ="SELECT NOW()";
+		
+		try {
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			//new BoardVO();
+			
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPass());
+			pstmt.setString(3, vo.getEmail());
+			pstmt.setString(4, vo.getTitle());
+			pstmt.setString(5, vo.getContent());
+			pstmt.setInt(6, vo.getNum());
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt);
+		}
+	}//end updateBoard-===========================================================================
+
 
 	
 	

@@ -1,9 +1,7 @@
 package com.saeyan.controller.action;
 
 import java.io.IOException;
-import java.net.Authenticator.RequestorType;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,32 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.saeyan.dao.BoardDAO;
 import com.saeyan.dto.BoardVO;
 
-
-public class BoardViewAction implements Action {
+public class BoardUpdateFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//1. num 가져오기
+		String url = "/board/boardUpdate.jsp";
+		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		//2. DB에서 num에 해당하는 값 가져오기!
-		
 		BoardDAO dao = BoardDAO.getinstance();
-		BoardVO vo = dao.selectOneByNum(num);
-		//3. 조회수 증가
 		dao.updateReadCount(num);
+		BoardVO vo = dao.selectOneByNum(num);
 		
-		//4. boardView 값 전달하기
 		request.setAttribute("board", vo);
 		
-		String url = "board/boardView.jsp";
-		
-		// RequestDispatcher dis = request.getRequestDispatcher(url);
-		// dis.forward(request, response);
-		
 		request.getRequestDispatcher(url).forward(request, response);
-		
 	}
 
 }
